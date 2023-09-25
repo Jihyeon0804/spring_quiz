@@ -53,7 +53,55 @@
 		FROM
 			`real_estate`
 		WHERE
-			`area` >= #{area} and `price` &lt;= #{price}
+			`type` = '매매' AND `area` >= #{area} AND `price` &lt;= #{price}
 		ORDER BY `id` DESC
 	</select>
+	
+	<insert id="insertRealEstate" parameterType="com.quiz.lesson03.domain.RealEstate">
+		INSERT INTO `real_estate`
+		(
+			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{realtorId}
+			, #{address}
+			, #{area}
+			, #{type}
+			, #{price}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+		
+	<insert id="insertRealEstateAsField" parameterType="map">
+		INSERT INTO `real_estate`
+		(
+			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			, `rentPrice`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{realtorId}
+			, #{address}
+			, #{area}
+			, #{type}
+			, #{price}
+			, #{rentPrice}
+			, NOW()
+			, NOW()
+		)
+	</insert>
 </mapper>

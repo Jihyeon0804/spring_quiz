@@ -14,25 +14,38 @@ public class RealEstateBO {
 	@Autowired
 	private RealEstateMapper realEstateMapper;
 
-	// 1.
-	// input : int(정수)
+	// 1-1.
+	// input : id
 	// output : RealEstate
 	public RealEstate getRealEstateById(int id) {
 		return realEstateMapper.selectRealEstateById(id);
 	}
 
-	// 2.
-	// input : int(정수)
+	// 1-2.
+	// input : rentPrice
 	// output : List<RealEstate>
 	public List<RealEstate> getRealEstateByRentPrice(int rentPrice) {
 		return realEstateMapper.selectRealEstateByRentPrice(rentPrice);
 	}
 
-	// 3.
-	// input : int(정수)
+	// 1-3.
+	// input : area, price
 	// output : List<RealEstate>
 	public List<RealEstate> getRealEstateByAreaPrice(int area, int price) {
 		return realEstateMapper.selectRealEstateByAreaPrice(area, price);
+	}
+	
+	// 2-1.
+	// input : RealEstate
+	// output : int
+	public int addRealEstate(RealEstate realEstate) {
+		return realEstateMapper.insertRealEstate(realEstate);
+	}
+	
+	// 2-2.
+	// addRealEstateByRealtorId(realtor_id, "썅떼빌리버 오피스텔 814호", 45, "월세", 100000, 120)
+	public int addRealEstateAsField(int realtorId, String address, int area, String type, int price, Integer rentPrice) {
+		return realEstateMapper.insertRealEstateAsField(realtorId, address, area, type, price, rentPrice);
 	}
 
 }

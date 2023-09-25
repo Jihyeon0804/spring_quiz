@@ -31,7 +31,7 @@ public class Lesson03Quiz01RestController {
 	// 2. 해당하는 월세보다 낮은 매물 json 출력
 	// 요청 URL : http://localhost:8080/lesson03/quiz01/2?rent_price=90
 	
-	// input : 월세(rentPrice)
+	// input : 월세(rentPrice)s
 	// output : List<RealEstate>
 	@RequestMapping("/2")
 	public List<RealEstate> quiz01_2(
@@ -50,6 +50,6 @@ public class Lesson03Quiz01RestController {
 	public List<RealEstate> quiz01_3(
 			@RequestParam("area") int area,			// 필수 파라미터 null X
 			@RequestParam("price") int price) {		// 필수 파라미터 null X
-		return realEstateBO.getRealEstateByAreaPrice(area, price);
+		return realEstateBO.getRealEstateByAreaPrice(area, price); // response body => JSON
 	}
 }
