@@ -1,0 +1,23 @@
+@charset "UTF-8";
+#wrap {
+	height: 1200px;
+}
+nav {
+	background-color: cornflowerblue;
+}
+.nav-font{
+	color: white;
+	font-weight: bold;
+	font-size: 17px;
+}
+.nav-font:hover{
+	color: white;
+	border: 2px solid white;
+}
+
+.contents {
+	min-height: 600px;
+}
+footer {
+	height: 100px;
+}
