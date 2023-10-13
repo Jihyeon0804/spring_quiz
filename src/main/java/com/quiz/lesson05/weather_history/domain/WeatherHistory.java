@@ -2,11 +2,11 @@ package com.quiz.lesson05.weather_history.domain;
 
 import java.util.Date;
 
-public class weather_history {
+public class WeatherHistory {
 
 	//
 	private int id;
-	private Date date;
+	private String date;
 	private String weather;
 	private double temperatures;
 	private double precipitation;
@@ -21,10 +21,10 @@ public class weather_history {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getWeather() {

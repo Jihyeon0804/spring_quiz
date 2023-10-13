@@ -18,6 +18,11 @@ nav {
 .contents {
 	min-height: 600px;
 }
+.input-label {
+    width:130px;
+    text-align: right;
+    margin-right:10px;
+}
 footer {
 	height: 100px;
 }

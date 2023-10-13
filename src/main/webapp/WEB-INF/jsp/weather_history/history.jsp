@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,18 +50,43 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach items="${weatherHistoryList}" var="weatherHistory">
 						<tr>
-						
+							<td>
+								<fmt:parseDate value="${weatherHistory.date}" pattern="yyyy-M-d" var="date"/>
+								<fmt:formatDate value="${date}" pattern="yyyy년 M월 d일"/>
+							</td>
+							<td>
+								<c:choose>
+									<c:when test="${weatherHistory.weather == '맑음'}">
+										<img src="/img/sunny.jpg" width="25">
+									</c:when>
+									<c:when test="${weatherHistory.weather == '구름조금'}">
+										<img src="/img/partlyCloudy.jpg" width="25">
+									</c:when>
+									<c:when test="${weatherHistory.weather == '흐림'}">
+										<img src="/img/cloudy.jpg" width="25">
+									</c:when>
+									<c:otherwise>
+										<img src="/img/rainy.jpg" width="25">
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td>${weatherHistory.temperatures}℃</td>
+							<td>${weatherHistory.precipitation}mm</td>
+							<td>${weatherHistory.microDust}</td>
+							<td>${weatherHistory.windSpeed}km/h</td>
 						</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 			</section>
 		</div>
 		<footer class="d-flex align-items-center">
-			<div class="footer-logo ml-4">
+			<div class="footer-logo ml-4 mr-4">
 				<img src="/img/foot_logo.png" width="120">
 			</div>
-			<div class="ml-4">
+			<div class="ml-5">
 				<small class="text-secondary">
 					(07062) 서울시 동작구 여의대방로16길61<br>
 					Copyright@2020 KMA. All Rights RESERVED.
