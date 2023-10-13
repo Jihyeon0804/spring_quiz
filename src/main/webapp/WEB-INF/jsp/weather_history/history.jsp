@@ -53,22 +53,24 @@
 					<c:forEach items="${weatherHistoryList}" var="weatherHistory">
 						<tr>
 							<td>
-								<fmt:parseDate value="${weatherHistory.date}" pattern="yyyy-M-d" var="date"/>
-								<fmt:formatDate value="${date}" pattern="yyyy년 M월 d일"/>
+								<fmt:formatDate value="${weatherHistory.date}" pattern="yyyy년 M월 d일"/>
 							</td>
 							<td>
 								<c:choose>
 									<c:when test="${weatherHistory.weather == '맑음'}">
-										<img src="/img/sunny.jpg" width="25">
+										<img src="/img/sunny.jpg" alt="맑음" width="25">
 									</c:when>
 									<c:when test="${weatherHistory.weather == '구름조금'}">
-										<img src="/img/partlyCloudy.jpg" width="25">
+										<img src="/img/partlyCloudy.jpg" alt="구름조금" width="25">
 									</c:when>
 									<c:when test="${weatherHistory.weather == '흐림'}">
-										<img src="/img/cloudy.jpg" width="25">
+										<img src="/img/cloudy.jpg" alt="흐림" width="25">
+									</c:when>
+									<c:when test="${weatherHistory.weather == '비'}">
+										<img src="/img/rainy.jpg" alt="비" width="25">
 									</c:when>
 									<c:otherwise>
-										<img src="/img/rainy.jpg" width="25">
+										${weatherHistory.weather}
 									</c:otherwise>
 								</c:choose>
 							</td>

@@ -5,38 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>날씨 입력</title>
+<%-- jquery 원본 : bootstrap, datepicker --%>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 <%-- bootstrap --%>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
 	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
 	crossorigin="anonymous">
 <script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
-<script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
 	crossorigin="anonymous"></script>
 	
 <%-- datepicker --%>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$.datepicker.setDefaults($.datepicker.regional['ko']);
-		$("#datePicker").datepicker({
-            dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-            monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-            dateFormat: "yy-mm-dd",
-            minDate: 0, 
-		});
-	});
-</script>
-       
 <%-- 내가 만든 스타일 시트 --%>
 <link rel="stylesheet" type="text/css"
 	href="/css/weather_history/style.css">
@@ -63,7 +48,7 @@
 			</nav>
 			<section class="col-10 mt-3 ml-5">
 				<h3>날씨 입력</h3>
-				<form method="post" action="/weather_history/add_weather">
+				<form method="post" action="/weather_history/add-weather">
 					<div class="d-flex justify-content-between mt-5">
 						<div class="d-flex align-items-center">
 							<div class="input-label">날짜</div>
@@ -138,5 +123,19 @@
 			</div>
 		</footer>
 	</div>
+	
+	
+	<script type="text/javascript">
+		// ready : DOM Tree가 완성된 후 불려지는 함수
+		$(document).ready(function() {
+			$("#datePicker").datepicker({
+	            dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+	            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+	            monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	            dateFormat: "yy-mm-dd",
+	            minDate: 0, 
+			});
+		});
+	</script>
 </body>
 </html>
