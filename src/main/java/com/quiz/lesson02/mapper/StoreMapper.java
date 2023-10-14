@@ -12,4 +12,5 @@ public interface StoreMapper {
 	// input : X
 	// output : List<Store>
 	public List<Store> selectStoreList();
+	
 }

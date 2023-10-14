@@ -3,12 +3,12 @@
 	height: 1000px;
 }
 header {
-	background-color: #2AC1BC;
-	height: 130px;
+	background-color: #2fbabd;
+	height: 150px;
 }
 .title {
 	color: #fff;
-	font-size: 65px;
+	font-size: 60px;
 	font-weight: bolder;
 }
 section {
@@ -16,12 +16,43 @@ section {
 	border-bottom: #999;
 }
 .sec-title {
-	font-size: 50px;
+	font-size: 100px;
 	font-weight: lighter;
 }
 .store {
 	border-style: solid;
-	border-color: #2AC1BC;
+	border-width: 3px;
+	border-color: #2fbabd;
+	border-radius: 10px;
+	min-height: 200px;
+}
+.storeName {
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.storeInfo {
+	font-size: 25px;
+	font-weight: 500;
+}
+.review {
+	min-height: 400px;
+}
+.review-date {
+	font-size: 30px;
+	color: #999;
+}
+.review-contents {
+	font-size: 30px;
+}
+
+.non-review {
+	font-weight: bolder;
+	font-size: 70px;
+}
+.review-menu {
+	background-color: rgb(192, 192, 192);
+	font-size: 25px;
 	border-radius: 5px;
 }
 

@@ -16,5 +16,5 @@ public class StoreBO {
 	
 	public List<Store> getstoreList() {
 		return storeMapper.selectStoreList();
-	}
+	}	
 }

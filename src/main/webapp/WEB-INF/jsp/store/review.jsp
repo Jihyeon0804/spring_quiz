@@ -16,17 +16,61 @@
 <body>
 	<div id="wrap" class="container">
 		<header class="d-flex align-items-center">
-			<div class="title">배탈의 민족</div>
+			<div class="title ml-4">배탈의 민족</div>
 		</header>
-		<section>
-			<div class="sec-title mt-2">우리동네 가게</div>
-			<c:forEach items="${storeList}" var="store">
-				<div Onclick="location.href='/store/review?storeId=${store.id}&storeName=${store.name}'" class="store my-4 p-4">
-					<h3>${store.name}</h3>
-					<div>
-						전화번호: ${store.phoneNumber}<br>
-						주소:  ${store.address}
+		<section class="review">
+			<div class="sec-title mt-2">${storeName} - 리뷰</div>
+			
+			<%-- 리뷰 없는 경우 --%>
+			<c:if test="${empty reviewList}">
+				<div class="non-review mt-5 ml-5 d-flex align-items-center">작성된 리뷰가 없습니다.</div>
+			</c:if>
+			
+			<%-- 리뷰 있는 경우 --%>
+			<c:forEach items="${reviewList}" var="review">
+				<div class="store my-4 p-4">
+					<div class="d-flex">
+						<div class="storeName">${review.userName}</div>
+						
+						<%-- 별점 --%>
+						<div class="point d-flex align-items-center ml-2">
+							<%-- 소수점 제외 구하기(pointQuot) --%>
+							<fmt:parseNumber value="${review.point}" var="pointQuot" integerOnly="true"/>
+							
+							<%-- 소수점 제외 부분 만큼 꽉 찬 별 반복 --%>
+							<c:forEach begin="1" end="${pointQuot}" step="1">
+								<img src="/img/star_fill.png" width="30">
+							</c:forEach>
+							
+							<%-- 별점 5 제외 (추가로 채워줄 부분 없으므로) 빈 별, 반쪽 별 --%>
+							<c:if test="${pointQuot != 5}">
+							
+								<%-- 빈 별 개수(pointRemain) --%>
+								<fmt:parseNumber value="${5 - review.point}" var="pointRemain" integerOnly="true"/>
+								
+								<%-- 0.5가 있는 경우 --%>
+								<c:if test="${review.point - pointQuot != 0}">
+									<img src="/img/star_half.png" width="30">
+								</c:if>
+								
+								<%-- 빈 별의 개수 만큼 반복 --%>
+								<c:forEach begin="1" end="${pointRemain}" step="1">
+									<img src="/img/star_empty.png" width="30">
+								</c:forEach>
+							</c:if>
+						</div>
 					</div>
+					
+					<%-- 리뷰 날짜 --%>
+					<div class="review-date">
+						<fmt:formatDate value="${review.updatedAt}" pattern="yyyy년 M월 d일"/>
+					</div>
+					
+					<%-- 리뷰 내용 --%>
+					<div class="review-contents mt-4">${review.review}</div>
+					
+					<%-- 주문 메뉴 --%>
+					<div class="mt-3"><span class="review-menu p-2">${review.menu}</span></div>
 				</div>
 			</c:forEach>
 		</section>

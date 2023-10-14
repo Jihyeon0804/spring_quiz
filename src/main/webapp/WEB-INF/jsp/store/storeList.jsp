@@ -16,16 +16,16 @@
 <body>
 	<div id="wrap" class="container">
 		<header class="d-flex align-items-center">
-			<div class="title">배탈의 민족</div>
+			<div class="title ml-4">배탈의 민족</div>
 		</header>
 		<section>
 			<div class="sec-title mt-2">우리동네 가게</div>
 			<c:forEach items="${storeList}" var="store">
 				<div Onclick="location.href='/store/review?storeId=${store.id}&storeName=${store.name}'" class="store my-4 p-4">
-					<h3>${store.name}</h3>
-					<div>
-						전화번호: ${store.phoneNumber}<br>
-						주소:  ${store.address}
+					<h3 class="storeName">${store.name}</h3>
+					<div class="storeInfo mt-4">
+						전화번호 : ${store.phoneNumber}<br>
+						주소 : ${store.address}
 					</div>
 				</div>
 			</c:forEach>
