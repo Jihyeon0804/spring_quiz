@@ -4,7 +4,7 @@
 
 <mapper namespace="com.quiz.lesson06.mapper.BookmarkMapper">
 	<insert id="insertBookmark" parameterType="map">
-		INSERT INTO `site`
+		INSERT INTO `bookmark`
 		(
 			`name`
 			,`url`
@@ -28,6 +28,6 @@
 			,`createdAt`
 			,`updatedAt`
 		FROM
-			`site`
+			`bookmark`
 	</select>
 </mapper>
