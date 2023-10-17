@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>북마크 추가 화면</title>
-<!-- bootstrap CDN link -->
+	<!-- bootstrap CDN link -->
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
  	<!--  AJAX를 사용하려면 반드시 jquery 원본 필요 -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -21,7 +21,11 @@
 		</div>
 		<div class="my-4">
 			<label for="url">주소</label>
-			<input type="text" id="url" name="url" class="form-control">
+			<div class="d-flex">
+				<input type="text" id="url" name="url" class="form-control">
+				<button type="button" id="isDuplicationBtn" class="btn btn-info ml-3">중복확인</button>
+			</div>
+			<small id="urlStatusArea"></small>
 		</div>
 		<input type="button" id="joinBtn" class="btn btn-success w-100" value="추가">
 	</div>
@@ -34,7 +38,7 @@
 			
 			// validation check
 			let name = $('#name').val().trim();
-			if (name == "") {
+			if (name == "") {	//  or if (!name)
 				alert("사이트 제목을 입력해주세요.");
 				return;
 			}
@@ -42,6 +46,14 @@
 			let url = $('#url').val().trim();
 			if (url == "") {
 				alert("사이트 주소를 입력해주세요.");
+				return;
+			}
+			
+			// http 또는 https 프로토콜까지 모두 입력되었는지 validation
+			// http://도 아니고 https://도 아닐 때로 조건 잡을 것임
+			
+			if (url.startsWith("http://") == false && url.startsWith("https://") == false) {
+				alert("주소 형식이 잘못되었습니다.");
 				return;
 			}
 			
@@ -58,16 +70,21 @@
 				
 				
 				// response
-				, success:function(data) {
-					if (data == "성공") {
+				, success:function(data) {	// data : response 응답값(JSON String) => Dictinary Object
+					// data는 JSON String => Object 변환된 형태로 사용할 수 있음
+					// jquery의 ajax 함수의 기능이기 때문에
+					/* alert(data.code);
+					alert(data.result); */
+					if (data.code == 200) {	// or data.result == "success"
 						location.href="/lesson06/quiz01/bookmark-list-view"
 					}
 				}
 				
 				, error:function(request, status, error) {
-					alert(request);
+					alert("추가에 실패했습니다. 관리자에게 문의해주세요.");
+					/* alert(request);
 					alert(status);
-					alert(error);
+					alert(error); */
 				}
 				
 				
