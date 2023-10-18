@@ -33,17 +33,59 @@
 
 <script>
 	$(document).ready(function() {
+		
+		
+		// 중복 확인 버튼 클릭 시
+		$('#isDuplicationBtn').on('click', function() {
+			// alert("중복 확인");
+			let url = $('#url').val().trim();
+			// small 태그 안쪽 비우고 시작
+			// 경고문 한 번만 보이도록 하기 위해
+			$('#urlStatusArea').empty();
+			
+			// 주소 입력 안한 경우
+			if (url == "") {
+				$('#urlStatusArea').append('<span class="text-danger">주소를 입력해주세요.</span>');
+				return;
+			}
+			
+			$.ajax({
+				// request
+				type:"get"
+				, url:"/lesson06/quiz01/is-duplication"
+				, data:{"url":url}
+				
+				
+				// response
+				, success:function(data) {
+					
+					if(data.is_duplication) {	// 중복일 떄
+						$('#urlStatusArea').append('<span class="text-danger">중복된 url입니다.</span>')
+					} else {
+						$('#urlStatusArea').append('<span class="text-danger" id="available">저장 가능한 url입니다.</span>')
+					}
+				}
+				, error:function(request, status, error) {
+					alert("중복 확인에 실패했습니다.")
+				}
+				
+			});
+
+		});
+		// 추가 버튼 누를 때
 		$('#joinBtn').on('click', function() {
 			// alert("클릭");
 			
 			// validation check
 			let name = $('#name').val().trim();
+			let url = $('#url').val().trim();
+			
 			if (name == "") {	//  or if (!name)
 				alert("사이트 제목을 입력해주세요.");
 				return;
 			}
 			
-			let url = $('#url').val().trim();
+			
 			if (url == "") {
 				alert("사이트 주소를 입력해주세요.");
 				return;
@@ -54,6 +96,12 @@
 			
 			if (url.startsWith("http://") == false && url.startsWith("https://") == false) {
 				alert("주소 형식이 잘못되었습니다.");
+				return;
+			}
+			
+			
+			if ($('#urlStatusArea').children().length == 0) {
+				alert("중복 확인을 해주세요.");
 				return;
 			}
 			
@@ -86,8 +134,6 @@
 					alert(status);
 					alert(error); */
 				}
-				
-				
 			});
 		});
 	});

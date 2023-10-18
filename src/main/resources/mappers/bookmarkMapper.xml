@@ -30,4 +30,18 @@
 		FROM
 			`bookmark`
 	</select>
+	
+	<select id="existBookmarkByUrl" parameterType="String" resultType="boolean">
+		SELECT
+			count(1)
+		FROM
+			`bookmark`
+		WHERE
+			`url` = #{url}
+	</select>
+	
+	<!-- <delete id="deleteBookmarkById" parameterType="id">
+		DELETE FROM `bookmark`
+		WHERE `id` = #{id}
+	</delete> -->
 </mapper>

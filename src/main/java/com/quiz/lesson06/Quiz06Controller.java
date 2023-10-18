@@ -53,6 +53,29 @@ public class Quiz06Controller {
 		return result;	// JSON String
 	}
 	
+	
+	// 중복 확인 로직
+	@ResponseBody
+	@RequestMapping("/quiz01/is-duplication")
+	public Map<String, Object> isDuplication(
+			@RequestParam("url") String url) {
+		
+		// 중복 확인
+		boolean isDuplicated = bookmarkBO.existBookmarkByUrl(url);
+		
+		// 응답값 : JSON String
+		/*	{
+				"code" : 1
+				, "result" : "success"
+			}*/
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("is_duplication", isDuplicated);
+		
+		return result;	// JSON String
+	}
+	
+	
 	// 북마크 목록 화면
 	@GetMapping("/quiz01/bookmark-list-view")
 	public String bookmarkListView(Model model) {
@@ -61,5 +84,13 @@ public class Quiz06Controller {
 		return "lesson06/bookmarkList";
 	}
 	
+	
+	// 북마크 삭제
+	@ResponseBody
+	@GetMapping("/quiz01/delete-bookmark")
+	public String deleteBSookmark(@RequestParam("id") int id) {
+		bookmarkBO.deleteBookmarkById(id);
+		return "redirect:/lesson06/quiz01/bookmark-list-view";
+	}
 	// ----- quiz01 끝 -----
 }
