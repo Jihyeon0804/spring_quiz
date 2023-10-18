@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,10 +35,10 @@
 			</ul>
 		</nav>
 		<section>
-			<div>
+			<div class="my-3 d-flex justify-content-center align-items-center">
 				<h2>예약 목록 보기</h2>
 			</div>
-			<table class="table">
+			<table class="table text-center">
 				<thead>
 					<tr>
 						<th>이름</th>
@@ -53,16 +54,36 @@
 				<c:forEach items="${bookingList}" var="booking">
 					<tr>
 						<td>${booking.name}</td>
-						<td>${booking.date}</td>
+						<td>
+							<fmt:formatDate value="${booking.date}" pattern="yyyy년 M월 d일"/>
+						</td>
 						<td>${booking.day}</td>
 						<td>${booking.headcount}</td>
 						<td>${booking.phoneNumber}</td>
-						<td>${booking.state}</td>
+						<td>
+							<c:choose>
+								<c:when test="${booking.state == '대기중'}">
+									<span class="text-info">${booking.state}</span>
+								</c:when>
+								<c:when test="${booking.state == '확정'}">
+									<span class="text-success">${booking.state}</span>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td><button type="button" class="btn btn-danger" data-id="${booking.id}">삭제</button></td>
 					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
 		</section>
+		<footer class="d-flex align-items-center pl-3">
+			<div class="address">
+				제주특별자치도 제주시 애월읍<br> 사업자등록번호: 111-22-255222 / 농어촌민박사업자지정 /
+				대표:김통목<br> Copyright 2025 tongnamu. All right reserved.
+			</div>
+		</footer>
 	</div>
 </body>
 </html>
