@@ -40,8 +40,21 @@
 			`url` = #{url}
 	</select>
 	
-	<!-- <delete id="deleteBookmarkById" parameterType="id">
+	<delete id="deleteBookmarkById" parameterType="int">
 		DELETE FROM `bookmark`
 		WHERE `id` = #{id}
-	</delete> -->
+	</delete>
+	
+	<select id="selectBookmarkByUrl" parameterType="String" resultType="com.quiz.lesson06.domain.Bookmark">
+		SELECT
+			`id`
+			,`name`
+			,`url`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`bookmark`
+		WHERE
+			`url` = #{url}
+	</select>
 </mapper>

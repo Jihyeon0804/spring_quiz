@@ -1,0 +1,19 @@
+@charset "UTF-8";
+header {height:100px;}
+
+nav {height:40px; background-color:#E3871F;}
+.nav-item .nav-link:hover {background-color:#A76417;}
+
+.banner {height:500px;}
+
+.reserve {height:250px;}
+.reserve .real-time-reserved {background-color:#B1520F;}
+.reserve .confirm {background-color: #CF6317;}
+.reserve .inquiry {background-color:#B1520F;}
+.reserve-confirm {color:#fff; font-size: 25px; }
+
+footer {height:80px;}
+footer .address {font-size:12px; color:#999;}
+
+.input-form {width:250px}
+.subject {margin-right: 20px; color:#fff; font-size:15px;}
