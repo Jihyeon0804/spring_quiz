@@ -112,76 +112,78 @@
 				let day = $('#day').val().trim();
 				let headcount = $('#headcount').val().trim();
 				let phoneNumber = $('#phoneNumber').val().trim();
+				phoneNumber = phoneNumber.replaceAll("-", "");
 				
 				// validation check
 				// name
 				if (!name) {
-					$('#checkName').removeClass('d-none')
+					$('#checkName').removeClass('d-none');
 					return;
 					
 				} else {
-					$('#checkName').addClass('d-none')
+					$('#checkName').addClass('d-none');
 				}
 				
 				// date
 				if (!date) {
-					$('#checkDate').removeClass('d-none')
+					$('#checkDate').removeClass('d-none');
 					return;
 				} else {
-					$('#checkDate').addClass('d-none')
+					$('#checkDate').addClass('d-none');
 				}
 				
-				// day
+				// day (숫자만 가능)
 				if (!day) {
-					$('#checkDay').removeClass('d-none')
+					$('#checkDay').removeClass('d-none');
 					return;
 				} else {
-					$('#checkDay').addClass('d-none')
+					$('#checkDay').addClass('d-none');
+					$('#notAvailableDay').addClass('d-none');
 				}
 				
-				
-				
-				// headcount
-				if (!headcount) {
-					$('#checkHeadCount').removeClass('d-none')
+				// 자연수 체크 - 숫자이면서 0 보다 크면 #notAvailableDay class 
+				if (isNaN(day) || parseInt(day) <= 0) {
+					$('#checkDay').addClass('d-none');
+					$('#notAvailableDay').removeClass('d-none');
 					return;
 				} else {
-					$('#checkHeadCount').addClass('d-none')
-				}
-				
-				
-				
-				// phoneNumber
-				if (!phoneNumber) {
-					$('#checkPhoneNumber').removeClass('d-none')
-					return;
-				} else {
-					$('#checkPhoneNumber').addClass('d-none')
+					$('#notAvailableDay').addClass('d-none')
 				}
 				
 
-				if (phoneNumber.startsWith('010') == false) {
-					$('#notAvailablePhoneNumber').removeClass('d-none')
-				} else {
-					$('#notAvailablePhoneNumber').addClass('d-none')
-				}
-				
-				/* if (Number.isInteger(parseInt(day)) && parseInt(day) > 0) {
-					$('#notAvailableDay').addClass('d-none')
+				// headcount (숫자만 가능)
+				if (!headcount) {
+					$('#checkHeadCount').removeClass('d-none');
 					return;
 				} else {
-					$('#notAvailableDay').removeClass('d-none')
-					$('#checkDay').addClass('d-none')
+					$('#checkHeadCount').addClass('d-none');
 				}
 				
-				if (Number.isInteger(parseInt(headcount)) && parseInt(headcount) > 0) {
+				if (isNaN(headcount) || parseInt(headcount) <= 0) {
+					$('#checkHeadCount').addClass('d-none');
+					$('#notAvailableHeadCount').removeClass('d-none');
+					return;
+				} else {
 					$('#notAvailableHeadCount').addClass('d-none')
-					$('#checkHeadCount').addClass('d-none')
+				}
+				
+				// phoneNumber
+				if (!phoneNumber) {
+					$('#checkPhoneNumber').removeClass('d-none');
 					return;
 				} else {
-					$('#notAvailableHeadCount').removeClass('d-none')
-					$('#checkHeadCount').addClass('d-none')
-				} */
+					$('#checkPhoneNumber').addClass('d-none');
+				}
+				
+
+				if (phoneNumber.startsWith('010') == false || phoneNumber.length != 11) {
+					$('#notAvailablePhoneNumber').removeClass('d-none');
+					return;
+				} else {
+					$('#notAvailablePhoneNumber').addClass('d-none');
+				}
+				phoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-" + phoneNumber.substring(7, 12)
+				
 				
 				
 				$.ajax({

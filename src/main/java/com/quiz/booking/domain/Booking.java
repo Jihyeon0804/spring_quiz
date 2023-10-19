@@ -2,12 +2,16 @@ package com.quiz.booking.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Booking {
 	private int id;
 	private String name;
 	private int headcount;
 	private int day;
-	private String date;
+	
+	@JsonFormat(pattern="yyyy-MM-dd", timezone="Asia/Seoul")
+	private Date date;
 	private String phoneNumber;
 	private String state;
 	private Date createdAt;
@@ -38,10 +42,10 @@ public class Booking {
 	public void setDay(int day) {
 		this.day = day;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public String getPhoneNumber() {
