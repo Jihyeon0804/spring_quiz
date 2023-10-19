@@ -1,5 +1,8 @@
 package com.quiz.booking;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,13 +27,6 @@ public class BookingController {
 	@Autowired
 	private BookingBO bookingBO;
 
-	// 통나무 펜션 사이트
-	// URL : http://localhost:8080/booking/homepage-view
-	@GetMapping("/homepage-view")
-	public String homepageView() {
-		return "booking/homepage";
-	}
-
 	// 예약 목록 리스트 페이지
 	// URL : http://localhost:8080/booking/reserve-list-view
 	@GetMapping("/reserve-list-view")
@@ -46,12 +42,13 @@ public class BookingController {
 	public Map<String, Object> deleteReservie(@RequestParam("id") int id) {
 
 		// db 삭제
-		bookingBO.deleteBookingBy(id);
+		bookingBO.deleteBookingById(id);
 
 		// 응답값
+		// {"code" : 200, "result" : "success"}
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
-		result.put("result", "성공");
+		result.put("result", "success");
 		return result;
 	}
 
@@ -65,7 +62,7 @@ public class BookingController {
 	
 	// 예약 하기 - AJAX 통신
 	@ResponseBody
-	@PostMapping("/insert-reserve")
+	@PostMapping("/add-reserve")
 	public Map<String, Object> insertReserve(
 			@RequestParam("name") String name,
 			@RequestParam("date") String date,
@@ -81,6 +78,33 @@ public class BookingController {
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
 		result.put("result", "성공");
+		return result;	// JSON String
+	}
+	
+
+	// 통나무 펜션 사이트
+	// URL : http://localhost:8080/booking/tongnamu-view
+	@GetMapping("/tongnamu-view")
+	public String homepageView() {
+		return "booking/tongnamu";
+	}
+
+	// 예약 조회하기 - AJAX 통신
+	@ResponseBody
+	@PostMapping("/search-reserve")
+	public Map<String, Object> submitReserve(
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber) {
+		
+		// db select
+		Booking existBooking = bookingBO.existBooking(name, phoneNumber);
+		
+		
+		// 응답값
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("result", "success");
+		result.put("existBooking", existBooking);
 		return result;
 	}
 }

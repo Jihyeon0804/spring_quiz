@@ -47,4 +47,22 @@
 			, NOW()
 		)
 	</insert>
+	
+	<select id="existBooking" parameterType="map" resultType="com.quiz.booking.domain.Booking">
+		SELECT
+			`name`
+			,`headcount`
+			,`day`
+			,`date`
+			,`phoneNumber`
+			, `state`	
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`booking`
+		WHERE
+			`name` = #{name}
+			AND
+			`phoneNumber`= #{phoneNumber}
+	</select>
 </mapper>

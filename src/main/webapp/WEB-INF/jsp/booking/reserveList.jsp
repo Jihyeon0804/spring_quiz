@@ -18,20 +18,23 @@
 </head>
 <body>
 	<div id="wrap" class="container">
-		<header
-			class="bg-light d-flex justify-content-center align-items-center">
-			<div class="display-4">통나무 팬션</div>
+		<header class="d-flex justify-content-center align-items-center">
+			<div class="display-4">통나무 펜션</div>
 		</header>
 		<nav>
 			<ul class="nav nav-fill">
-				<li class="nav-item"><a href="#"
-					class="nav-link text-white font-weight-bold">팬션소개</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link text-white font-weight-bold">객실보기</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link text-white font-weight-bold">예약하기</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link text-white font-weight-bold">예약목록</a></li>
+				<li class="nav-item">
+					<a href="#" class="nav-link text-white font-weight-bold">팬션소개</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link text-white font-weight-bold">객실보기</a>
+				</li>
+				<li class="nav-item">
+					<a href="/booking/reserve-view" class="nav-link text-white font-weight-bold">예약하기</a>
+				</li>
+				<li class="nav-item">
+					<a href="/booking/reserve-list-view" class="nav-link text-white font-weight-bold">예약목록</a>
+				</li>
 			</ul>
 		</nav>
 		<section>
@@ -68,6 +71,9 @@
 								<c:when test="${booking.state == '확정'}">
 									<span class="text-success">${booking.state}</span>
 								</c:when>
+								<c:when test="${booking.state == '취소'}">
+									<span class="text-danger">${booking.state}</span>
+								</c:when>
 								<c:otherwise>
 								</c:otherwise>
 							</c:choose>
@@ -103,10 +109,15 @@ $(document).ready(function () {
 			,data:{"id":id}
 		
 			// response
-			, success:function(data) {
+			, success:function(data) {	// JSON => dictionary
+				// {"code" : 200, "result" : "success"}
 				if (data.code == 200) {
+					alert("삭제되었습니다.");
+					
+					// 새로고침
 					location.reload();
 				} else {
+					// 오류는 아닌 로직 에러
 					alert("삭제하는데 실패했습니다. 다시 시도해주세요.");
 				}
 			}

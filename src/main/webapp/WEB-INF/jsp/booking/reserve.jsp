@@ -15,27 +15,30 @@
 	
 	<%-- datepicker --%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	
 	<!-- 내가 만든 스타일 시트 -->
 	<link rel="stylesheet" type="text/css" href="/css/booking/style.css">
-	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </head>
 <body>
 	<div id="wrap" class="container">
-		<header
-			class="bg-light d-flex justify-content-center align-items-center">
-			<div class="display-4">통나무 팬션</div>
+		<header class="d-flex justify-content-center align-items-center">
+			<div class="display-4">통나무 펜션</div>
 		</header>
 		<nav>
 			<ul class="nav nav-fill">
-				<li class="nav-item"><a href="#"
-					class="nav-link text-white font-weight-bold">팬션소개</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link text-white font-weight-bold">객실보기</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link text-white font-weight-bold">예약하기</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link text-white font-weight-bold">예약목록</a></li>
+				<li class="nav-item">
+					<a href="#" class="nav-link text-white font-weight-bold">팬션소개</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link text-white font-weight-bold">객실보기</a>
+				</li>
+				<li class="nav-item">
+					<a href="/booking/reserve-view" class="nav-link text-white font-weight-bold">예약하기</a>
+				</li>
+				<li class="nav-item">
+					<a href="/booking/reserve-list-view" class="nav-link text-white font-weight-bold">예약목록</a>
+				</li>
 			</ul>
 		</nav>
 		<section>
@@ -46,24 +49,24 @@
 				<div class="col-6">
 					<div>
 						<label for="name">이름</label>
-						<input class="form-control" id="name" name="name">
+						<input type="text" class="form-control" id="name" name="name">
 						<small><span id="checkName" class="text-danger d-none">이름을 입력해주세요.</span></small>
 					</div>
 					<!-- 예약 날짜 - datepicker -->
 					<div class="mt-2">
 						<label for="date">예약날짜</label>
-						<input class="form-control" id="date" name="date">
+						<input type="text" class="form-control" id="date" name="date">
 						<small><span id="checkDate" class="text-danger d-none">날짜를 선택해주세요.</span></small>
 					</div>
 					<div class="mt-2">
 						<label for="day">숙박일수</label>
-						<input class="form-control" id="day" name="day">
+						<input type="text" class="form-control" id="day" name="day">
 						<small><span id="checkDay" class="text-danger d-none">숙박일수를 입력해주세요.</span></small>
 						<small><span id="notAvailableDay" class="text-danger d-none">올바른 형식이 아닙니다.</span></small>
 					</div>
 					<div class="mt-2">
 						<label for="headcount">숙박인원</label>
-						<input class="form-control" id="headcount" name="headcount">
+						<input type="text" class="form-control" id="headcount" name="headcount">
 						<small><span id="checkHeadCount" class="text-danger d-none">숙박인원을 입력해주세요.</span></small>
 						<small><span id="notAvailableHeadCount" class=" text-danger d-none">올바른 형식이 아닙니다.</span></small>
 					</div>
@@ -88,13 +91,14 @@
 	
 	<script>
 		$(document).ready(function() {
+			
 			// 예약 날짜 선택(datepicker)
 			$("#date").datepicker({
 	            dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
 	            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
 	            monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
 	            dateFormat: "yy-mm-dd",
-	            minDate: 0, 
+	            minDate: 0	// 오늘 날짜부터 선택
 			});
 			
 			
@@ -102,7 +106,6 @@
 			$('#reserve-btn').on('click', function() {
 				// alert("예약");
 				
-				// validation check
 				// name, date, day, headcount, phoneNumber
 				let name = $('#name').val().trim();
 				let date = $('#date').val();
@@ -110,7 +113,7 @@
 				let headcount = $('#headcount').val().trim();
 				let phoneNumber = $('#phoneNumber').val().trim();
 				
-				
+				// validation check
 				// name
 				if (!name) {
 					$('#checkName').removeClass('d-none')
@@ -185,12 +188,14 @@
 					// request
 					// name, date, day, headcount, phoneNumber
 					type:"post"
-					, url:"/booking/insert-reserve"
-					,data:{"name":name, "date":date, "day":day, "headcount":headcount, "phoneNumber":phoneNumber}
+					, url:"/booking/add-reserve"
+					,data:{"name":name, "date":date, "day":day,
+						"headcount":headcount, "phoneNumber":phoneNumber}
 					
 					// response
 					, success:function(data) {
 						if (data.code == 200) {
+							alert("예약되었습니다.");
 							location.href="/booking/reserve-list-view"
 						} else {
 							alert("예약하는데 실패했습니다. 다시 시도해주세요.");
