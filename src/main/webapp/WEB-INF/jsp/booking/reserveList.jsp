@@ -72,7 +72,7 @@
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<td><button type="button" class="btn btn-danger" data-id="${booking.id}">삭제</button></td>
+						<td><button type="button" class="del-btn btn btn-danger" data-booking-id="${booking.id}">삭제</button></td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -86,4 +86,36 @@
 		</footer>
 	</div>
 </body>
+
+<script>
+$(document).ready(function () {
+	// 삭제 버튼 클릭 시
+	$('.del-btn').on('click', function() {
+		// alert('삭제');
+		
+		let id = $(this).data('booking-id');
+		// alert(id);
+		
+		$.ajax({
+			// request
+			type:"delete"
+			,url:"/booking/delete-reserve"
+			,data:{"id":id}
+		
+			// response
+			, success:function(data) {
+				if (data.code == 200) {
+					location.reload();
+				} else {
+					alert("삭제하는데 실패했습니다. 다시 시도해주세요.");
+				}
+			}
+			, error:function(request, status, error) {
+				alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
+			}
+		});
+	});
+	
+});
+</script>
 </html>

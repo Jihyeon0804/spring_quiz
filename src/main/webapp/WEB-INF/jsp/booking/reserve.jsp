@@ -47,33 +47,33 @@
 					<div>
 						<label for="name">이름</label>
 						<input class="form-control" id="name" name="name">
-						<small><span class="checkName text-danger d-none">이름을 입력해주세요.</span></small>
+						<small><span id="checkName" class="text-danger d-none">이름을 입력해주세요.</span></small>
 					</div>
 					<!-- 예약 날짜 - datepicker -->
 					<div class="mt-2">
 						<label for="date">예약날짜</label>
 						<input class="form-control" id="date" name="date">
-						<small><span class="checkDate text-danger d-none">날짜를 선택해주세요.</span></small>
+						<small><span id="checkDate" class="text-danger d-none">날짜를 선택해주세요.</span></small>
 					</div>
 					<div class="mt-2">
 						<label for="day">숙박일수</label>
 						<input class="form-control" id="day" name="day">
-						<small><span class="checkDay text-danger d-none">숙박일수를 입력해주세요.</span></small>
-						<small><span class="notAvailableDay text-danger d-none">올바른 형식이 아닙니다.</span></small>
+						<small><span id="checkDay" class="text-danger d-none">숙박일수를 입력해주세요.</span></small>
+						<small><span id="notAvailableDay" class="text-danger d-none">올바른 형식이 아닙니다.</span></small>
 					</div>
 					<div class="mt-2">
 						<label for="headcount">숙박인원</label>
 						<input class="form-control" id="headcount" name="headcount">
-						<small><span class="checkHeadCount text-danger d-none">숙박인원을 입력해주세요.</span></small>
-						<small><span class="notAvailableHeadCount text-danger d-none">올바른 형식이 아닙니다.</span></small>
+						<small><span id="checkHeadCount" class="text-danger d-none">숙박인원을 입력해주세요.</span></small>
+						<small><span id="notAvailableHeadCount" class=" text-danger d-none">올바른 형식이 아닙니다.</span></small>
 					</div>
 					<div class="mt-2">
 						<label for="phoneNumber">전화번호</label>
 						<input class="form-control" id="phoneNumber" name="phoneNumber">
-						<small><span class="checkPhoneNumber text-danger d-none">전화번호를 입력해주세요.</span></small>
-						<small><span class="notAvailablePhoneNumber text-danger d-none">올바른 전화번호 형식이 아닙니다.</span></small>
+						<small><span id="checkPhoneNumber" class="checkPhoneNumber text-danger d-none">전화번호를 입력해주세요.</span></small>
+						<small><span id="notAvailablePhoneNumber"  class="notAvailablePhoneNumber text-danger d-none">올바른 전화번호 형식이 아닙니다.</span></small>
 					</div>
-					<button type="button" class="reserve-btn btn btn-warning w-100 mt-3">예약하기</button>
+					<button type="button" id="reserve-btn" class="btn btn-warning w-100 mt-3">예약하기</button>
 				</div>
 			</div>
 		</section>
@@ -99,10 +99,11 @@
 			
 			
 			// 예약하기 버튼 클릭 시
-			$('.reserve-btn').on('click', function() {
+			$('#reserve-btn').on('click', function() {
 				// alert("예약");
 				
 				// validation check
+				// name, date, day, headcount, phoneNumber
 				let name = $('#name').val().trim();
 				let date = $('#date').val();
 				let day = $('#day').val().trim();
@@ -112,63 +113,94 @@
 				
 				// name
 				if (!name) {
-					$('.checkName').removeClass('d-none')
+					$('#checkName').removeClass('d-none')
 					return;
 					
 				} else {
-					$('.checkName').addClass('d-none')
+					$('#checkName').addClass('d-none')
 				}
 				
 				// date
 				if (!date) {
-					$('.checkDate').removeClass('d-none')
+					$('#checkDate').removeClass('d-none')
 					return;
 				} else {
-					$('.checkDate').addClass('d-none')
+					$('#checkDate').addClass('d-none')
 				}
 				
 				// day
 				if (!day) {
-					$('.checkDay').removeClass('d-none')
+					$('#checkDay').removeClass('d-none')
 					return;
 				} else {
-					$('.checkDay').addClass('d-none')
-				}
-				
-				if (Number.isInteger(parseInt(day)) && parseInt(day) > 0) {
-					$('.notAvailableDay').addClass('d-none')
-					return;
-				} else {
-					$('.checkDay').addClass('d-none')
-					$('.notAvailableDay').removeClass('d-none')
+					$('#checkDay').addClass('d-none')
 				}
 				
 				
 				
 				// headcount
 				if (!headcount) {
-					$('.checkHeadCount').removeClass('d-none')
+					$('#checkHeadCount').removeClass('d-none')
 					return;
 				} else {
-					$('.checkHeadCount').addClass('d-none')
+					$('#checkHeadCount').addClass('d-none')
 				}
-				
 				
 				
 				
 				// phoneNumber
 				if (!phoneNumber) {
-					$('.checkPhoneNumber').removeClass('d-none')
+					$('#checkPhoneNumber').removeClass('d-none')
 					return;
 				} else {
-					$('.checkPhoneNumber').addClass('d-none')
-				}
-				if (!phoneNumber.startsWith('010')) {
-					$('.notAvailablePhoneNumber').removeClass('d-none')
-				} else {
-					$('.notAvailablePhoneNumber').addClass('d-none')
+					$('#checkPhoneNumber').addClass('d-none')
 				}
 				
+
+				if (phoneNumber.startsWith('010') == false) {
+					$('#notAvailablePhoneNumber').removeClass('d-none')
+				} else {
+					$('#notAvailablePhoneNumber').addClass('d-none')
+				}
+				
+				/* if (Number.isInteger(parseInt(day)) && parseInt(day) > 0) {
+					$('#notAvailableDay').addClass('d-none')
+					return;
+				} else {
+					$('#notAvailableDay').removeClass('d-none')
+					$('#checkDay').addClass('d-none')
+				}
+				
+				if (Number.isInteger(parseInt(headcount)) && parseInt(headcount) > 0) {
+					$('#notAvailableHeadCount').addClass('d-none')
+					$('#checkHeadCount').addClass('d-none')
+					return;
+				} else {
+					$('#notAvailableHeadCount').removeClass('d-none')
+					$('#checkHeadCount').addClass('d-none')
+				} */
+				
+				
+				$.ajax({
+					// request
+					// name, date, day, headcount, phoneNumber
+					type:"post"
+					, url:"/booking/insert-reserve"
+					,data:{"name":name, "date":date, "day":day, "headcount":headcount, "phoneNumber":phoneNumber}
+					
+					// response
+					, success:function(data) {
+						if (data.code == 200) {
+							location.href="/booking/reserve-list-view"
+						} else {
+							alert("예약하는데 실패했습니다. 다시 시도해주세요.");
+						}
+					}
+					,error:function(request,status, error) {
+						alert("예약하는데 실패했습니다. 관리자에게 문의해주세요.");
+					}
+					
+				});
 			});
 		});
 	</script>
