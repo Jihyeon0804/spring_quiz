@@ -21,5 +21,8 @@ public interface BookingMapper {
 			@Param("headcount") int headcount,
 			@Param("phoneNumber") String phoneNumber);
 	
-	public Booking existBooking(@Param("name") String name, @Param("phoneNumber") String phoneNumber);
+	// select한 값이 여러개일 수 있으므로 output List<Booking>
+	public List<Booking> existBooking(
+			@Param("name") String name,
+			@Param("phoneNumber") String phoneNumber);
 }

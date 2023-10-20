@@ -39,9 +39,22 @@ public class BookingBO {
 	
 	// ----- 예약 조회 select -----
 	// input : name, phoneNumber
-	// output : boolean
+	// output : Booking (null or Booking)
+	// mybatis는 비어있으면 null이 아닌 [] 반환 => bookingList는 list가 비어있거나 그렇지 않거나 둘 중 하나
+	// Mapper에서 List로 return 하지만 최신으로 한 개만 받아오도록 구성
+	// Mapper로부터 받아온 것을 가공
 	public Booking existBooking(String name, String phoneNumber) {
-		return bookingMapper.existBooking(name, phoneNumber);
+		List<Booking> bookingList = bookingMapper.existBooking(name, phoneNumber);
+		// index가 클 수록 최신 데이터
+		// 리스트가 비어있으면 null이 아닌 []
+		
+		// bookingList 비어있는지 확인
+		if (bookingList.isEmpty()) {
+			return null;	// null
+		} 
+		
+		// 리스트가 비어있지 않으면 마지막 객체 리턴
+		return bookingList.get(bookingList.size() - 1);		// booking
 	}
 	
 }

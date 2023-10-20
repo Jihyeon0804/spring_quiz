@@ -87,7 +87,7 @@ public class BookingController {
 	}
 
 	// 예약 조회하기 - AJAX 통신
-	@ResponseBody
+	@ResponseBody	// Model 사용 불가(JSP return이 아니기 때문에; view로 가지 않기 때문에)
 	@PostMapping("/search-reserve")
 	public Map<String, Object> submitReserve(
 			@RequestParam("name") String name,
@@ -98,10 +98,18 @@ public class BookingController {
 		
 		
 		// 응답값
+		// {"code":200, "result":"success", "existBooking" : existBooking}
+		// {"code":400, "result":"error", "error_message" : "데이터가 존재하지 않습니다."}
 		Map<String, Object> result = new HashMap<>();
-		result.put("code", 200);
-		result.put("result", "success");
-		result.put("existBooking", existBooking);
+		if (existBooking == null) {
+			result.put("code", 400);
+			result.put("result", "error");
+			result.put("error_message", "데이터가 존재하지 않습니다.");
+		} else {
+			result.put("code", 200);
+			result.put("result", "success");
+			result.put("existBooking", existBooking);
+		}
 		return result;
 	}
 }

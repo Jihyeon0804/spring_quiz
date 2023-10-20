@@ -133,14 +133,15 @@ $(document).ready(function() {
 			// response
 			, success:function(data) {
 				// {"code":200, "result":"success", "existBooking" : existBooking}
-				if (data.existBooking != null) {
+				// {"code":400, "result":"error", "error_message" : "데이터가 존재하지 않습니다."}
+				if (data.code == 200) {
 					alert("이름 : " + data.existBooking.name
 							+ "\n 날짜 : " + data.existBooking.date
 							+ "\n 일수 : " + data.existBooking.day
 							+ "\n 인원 : " + data.existBooking.headcount
 							+ "\n 상태 : " + data.existBooking.state);
-				} else {
-					alert("예약 내역이 없습니다.");
+				} else if (data.code == 400) {
+					alert(data.error_message);
 				}
 			}
 			, error:function(request, status, error) {
