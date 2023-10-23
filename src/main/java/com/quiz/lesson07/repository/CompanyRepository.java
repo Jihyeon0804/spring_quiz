@@ -7,5 +7,10 @@ import com.quiz.lesson07.entity.CompanyEntity;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer>{
-
+	
+	// JpaRepository : Spring Data JPA
+	
+	// save(엔티티객체) - insert, update
+	// findById - select
+	// delete(객체) - delete
 }
