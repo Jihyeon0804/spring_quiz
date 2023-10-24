@@ -1,5 +1,6 @@
 package com.quiz.lesson07;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,11 @@ public class Lesson07Quiz02RestController {
 	@GetMapping("/6")
 	public List<RecruitEntity> getRecruitList6() {
 		return recruitBO.getRecruitListByRegionAndSalary("성남시 분당구", 7000, 8500);
+	}
+	
+	// 7. 마감일이 2026-04-10 이후이고 연봉이 8100 이상인 정규직 공고를 연봉 내림차순으로 조회
+	@GetMapping("/7")
+	public List<RecruitEntity> getRecruitList7() {
+		return recruitBO.getRecruitListByDeadlineAndSalary("정규직", LocalDate.of(2026, 4, 10), 8100);
 	}
 }

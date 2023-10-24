@@ -1,7 +1,7 @@
 package com.quiz.lesson07.entity;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,7 +47,7 @@ public class RecruitEntity {
 	
 	private int salary;
 	
-	private Date deadline;
+	private LocalDate deadline;		// 시분초 없음
 	
 	@UpdateTimestamp
 	@Column(name="createdAt", updatable=false)

@@ -1,5 +1,6 @@
 package com.quiz.lesson07.bo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,12 @@ public class RecruitBO {
 	// output : List<RecruitEntity>
 	public List<RecruitEntity> getRecruitListByRegionAndSalary(String region, int start, int end) {
 		return recruitRepository.findByRegionAndSalaryBetween(region, start, end);
+	}
+	
+	
+	// input : params(type, deadline, salary)
+	// output : List<RecruitEntity>
+	public List<RecruitEntity> getRecruitListByDeadlineAndSalary(String type, LocalDate deadline, int salary) {
+		return recruitRepository.findByTypeAndDeadlineAfterAndSalaryGreaterThanEqualOrderBySalaryDesc(type, deadline, salary);
 	}
 }
